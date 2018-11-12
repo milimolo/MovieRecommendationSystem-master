@@ -53,7 +53,7 @@ public class MovieDAO
      * @return The object representation of the movie added to the persistence
      * storage.
      */
-    private Movie createMovie(int releaseYear, String title) throws IOException
+    private Movie createMovie(int releaseYear, String title)
     {
         id = id++;
         Movie movie = new Movie(id, releaseYear, title);
