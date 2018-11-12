@@ -18,9 +18,10 @@ import movierecsys.be.Movie;
  */
 public class MovieDAO
 {
-
+    
     private static final String SOURCE = "data/movie_titles.txt";
-            
+    List<Movie> allMovies = new ArrayList<>();
+    int id = 0;
     /**
      * Gets a list of all movies in the persistence storage.
      *
@@ -29,12 +30,12 @@ public class MovieDAO
     private List<Movie> getAllMovies() throws IOException
     {
         File file = new File(SOURCE);
-        List<Movie> allMovies = new ArrayList<>();
+        
         List<String> lines = Files.readAllLines(file.toPath());
         for (String line : lines)
         {
             String[] columns = line.split(",");
-            int id = Integer.parseInt(columns[0]);
+            id = Integer.parseInt(columns[0]);
             int year = Integer.parseInt(columns[1]);
             String title = columns[2];
             Movie movie = new Movie(id, year, title);
@@ -52,10 +53,13 @@ public class MovieDAO
      * @return The object representation of the movie added to the persistence
      * storage.
      */
-    private Movie createMovie(int releaseYear, String title)
+    private Movie createMovie(int releaseYear, String title) throws IOException
     {
-        //TODO Create movie.
-        return null;
+        id = id++;
+        Movie movie = new Movie(id, releaseYear, title);
+        
+        allMovies.add(movie);
+        return movie;
     }
 
     /**
@@ -65,7 +69,7 @@ public class MovieDAO
      */
     private void deleteMovie(Movie movie)
     {
-        //TODO Delete movie
+        allMovies.remove(movie);
     }
 
     /**
